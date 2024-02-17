@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { useAppStore } from "../../store/app";
+
 import Uploader from "../../components/Uploader/Uploader";
 
 import styles from "./Intro.module.css";
 
 const Intro = (): JSX.Element => {
+  const { uploading } = useAppStore();
+
   const [showTip, setShowTip] = useState(false);
 
   const onUploaderHover = (): void => {
@@ -72,11 +76,13 @@ const Intro = (): JSX.Element => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.5, delay: 2.5 }}
-        onMouseEnter={onUploaderHover}
-        onMouseLeave={onUploaderLeave}
-        onTap={onUploaderHover}
-        onTapStart={onUploaderHover}
-        onTapCancel={onUploaderLeave}
+        {...(!uploading && {
+          onMouseEnter: onUploaderHover,
+          onMouseLeave: onUploaderLeave,
+          onTap: onUploaderHover,
+          onTapStart: onUploaderHover,
+          onTapCancel: onUploaderLeave,
+        })}
       >
         <Uploader />
       </motion.div>

@@ -1,4 +1,5 @@
-import { ChangeEvent, useState, useRef } from "react";
+import { ChangeEvent, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import cn from "classnames";
 
 import { useAppStore } from "../../store/app";
@@ -10,19 +11,17 @@ import styles from "./Uploader.module.css";
 const Uploader = (): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { tracks, setTracks } = useAppStore();
-
-  const [loading, setLoading] = useState(false);
+  const { tracks, uploading, setTrack, setUploading } = useAppStore();
 
   const onUploadInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    setLoading(true);
+    setUploading(true);
 
     if (e.target.files) {
       for (const file of e.target.files) {
         const fileName = file.name;
 
         if (tracks.find((audioFile) => audioFile.name === fileName)) {
-          setLoading(false);
+          setUploading(false);
           return;
         }
 
@@ -31,7 +30,7 @@ const Uploader = (): JSX.Element => {
 
         const duration = await getTrackDuration(sourceAux);
 
-        setTracks({
+        setTrack({
           src: audio.src,
           name: file.name,
           duration,
@@ -42,7 +41,7 @@ const Uploader = (): JSX.Element => {
         inputRef.current.value = "";
       }
 
-      setLoading(false);
+      setUploading(false);
     }
   };
 
@@ -53,10 +52,28 @@ const Uploader = (): JSX.Element => {
       <label
         htmlFor="file-upload"
         className={cn(styles["label"], {
-          [styles["label-disabled"]]: loading,
+          [styles["label-disabled"]]: uploading,
         })}
       >
-        <span className={styles["button"]}>Upload</span>
+        <span className={styles["button"]}>
+          Upload
+          <AnimatePresence mode="wait">
+            {uploading && (
+              <motion.span
+                key={uploading.toString()}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className={styles["loader"]}
+              >
+                ing<span>.</span>
+                <span>.</span>
+                <span>.</span>
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </span>
       </label>
 
       <input
@@ -67,15 +84,13 @@ const Uploader = (): JSX.Element => {
         multiple
         id="file-upload"
         className={styles["input"]}
-        disabled={loading}
+        disabled={uploading}
       />
 
-      {loading && <p>Loading...</p>}
-
-      {!loading && (
+      {!uploading && (
         <ul>
-          {tracks.map((file, index) => (
-            <li key={index}>
+          {tracks.map((file) => (
+            <li key={file.id}>
               <p>{file.name}</p>
             </li>
           ))}

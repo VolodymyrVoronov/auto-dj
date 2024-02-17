@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 export interface ITrack {
-  id?: number;
+  id?: string;
   src: string;
   name: string;
   duration: number;
@@ -11,20 +11,25 @@ export interface ITrack {
 
 export interface IAppStore {
   tracks: ITrack[];
+  uploading: boolean;
 }
 
 export interface IAppStoreActions {
-  setTracks: (track: ITrack) => void;
+  setTrack: (track: ITrack) => void;
+  setUploading: (uploading: boolean) => void;
 }
 
 export const useAppStore = create(
   immer<IAppStore & IAppStoreActions>((set) => ({
     tracks: [],
+    uploading: false,
 
-    setTracks: (track) => {
+    setTrack: (track) => {
       set((state) => {
+        const newId = window.crypto.randomUUID();
+
         const newTrack = {
-          id: state.tracks.length + 1,
+          id: newId,
           src: track.src,
           name: track.name,
           duration: track.duration,
@@ -32,6 +37,12 @@ export const useAppStore = create(
         };
 
         state.tracks.push(newTrack);
+      });
+    },
+
+    setUploading: (uploading) => {
+      set((state) => {
+        state.uploading = uploading;
       });
     },
   }))
