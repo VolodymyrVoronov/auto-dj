@@ -4,13 +4,7 @@
   align-items: center;
   flex-direction: column;
 
-  height: 100vh;
-
-  @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
-    height: auto;
-
-    padding-block: 50px;
-  }
+  padding-block: 100px;
 }
 
 .title {

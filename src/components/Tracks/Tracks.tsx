@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { useAppStore } from "../../store/app";
@@ -7,7 +6,7 @@ import Button from "../Button/Button";
 
 import styles from "./Tracks.module.css";
 
-const Tracks = memo((): JSX.Element => {
+const Tracks = (): JSX.Element => {
   const { tracks, uploading, deleteTrack } = useAppStore();
 
   const onDeleteButtonClick = (id?: string): void => {
@@ -43,8 +42,6 @@ const Tracks = memo((): JSX.Element => {
       </AnimatePresence>
     </div>
   );
-});
-
-Tracks.displayName = "Tracks";
+};
 
 export default Tracks;
