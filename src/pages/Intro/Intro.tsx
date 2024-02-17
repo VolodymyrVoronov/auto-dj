@@ -94,7 +94,7 @@ const Intro = (): JSX.Element => {
       <Tracks />
 
       <AnimatePresence>
-        {tracks.length > 0 && (
+        {!!tracks.length && (
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
