@@ -1,0 +1,25 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  margin-top: 50px;
+}
+
+.track {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 5px;
+
+  border-bottom: 1px dashed var(--white);
+}
+
+.name {
+  margin-right: 25px;
+
+  font-family: "Press Start 2P", system-ui;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}

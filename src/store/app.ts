@@ -17,6 +17,7 @@ export interface IAppStore {
 export interface IAppStoreActions {
   setTrack: (track: ITrack) => void;
   setUploading: (uploading: boolean) => void;
+  deleteTrack: (id: string) => void;
 }
 
 export const useAppStore = create(
@@ -43,6 +44,12 @@ export const useAppStore = create(
     setUploading: (uploading) => {
       set((state) => {
         state.uploading = uploading;
+      });
+    },
+
+    deleteTrack: (id) => {
+      set((state) => {
+        state.tracks = state.tracks.filter((track) => track.id !== id);
       });
     },
   }))

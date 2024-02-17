@@ -86,16 +86,6 @@ const Uploader = (): JSX.Element => {
         className={styles["input"]}
         disabled={uploading}
       />
-
-      {!uploading && (
-        <ul>
-          {tracks.map((file) => (
-            <li key={file.id}>
-              <p>{file.name}</p>
-            </li>
-          ))}
-        </ul>
-      )}
     </>
   );
 };

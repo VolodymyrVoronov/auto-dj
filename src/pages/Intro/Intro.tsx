@@ -4,11 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "../../store/app";
 
 import Uploader from "../../components/Uploader/Uploader";
+import Tracks from "../../components/Tracks/Tracks";
 
 import styles from "./Intro.module.css";
+import Button from "../../components/Button/Button";
 
 const Intro = (): JSX.Element => {
-  const { uploading } = useAppStore();
+  const { tracks, uploading } = useAppStore();
 
   const [showTip, setShowTip] = useState(false);
 
@@ -19,6 +21,8 @@ const Intro = (): JSX.Element => {
   const onUploaderLeave = (): void => {
     setShowTip(false);
   };
+
+  console.log(uploading);
 
   return (
     <div className={styles["root"]}>
@@ -56,7 +60,7 @@ const Intro = (): JSX.Element => {
 
       <div className={styles["tip-container"]}>
         <AnimatePresence>
-          {showTip && (
+          {showTip && !tracks.length && (
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -76,7 +80,7 @@ const Intro = (): JSX.Element => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.5, delay: 2.5 }}
-        {...(!uploading && {
+        {...((!uploading || !tracks.length) && {
           onMouseEnter: onUploaderHover,
           onMouseLeave: onUploaderLeave,
           onTap: onUploaderHover,
@@ -86,6 +90,23 @@ const Intro = (): JSX.Element => {
       >
         <Uploader />
       </motion.div>
+
+      <Tracks />
+
+      <AnimatePresence>
+        {tracks.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            <Button className={styles["play"]} disabled={uploading}>
+              Play <span>&#9654;</span>
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

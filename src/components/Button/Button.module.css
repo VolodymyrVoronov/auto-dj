@@ -1,0 +1,40 @@
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 30px;
+  height: 30px;
+
+  font-size: 18px;
+
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: var(--white);
+
+  border: none;
+  border-radius: 10px;
+
+  background-image: linear-gradient(
+    to right,
+    var(--red) 0%,
+    var(--purple) 50%,
+    var(--blue-light) 100%
+  );
+
+  cursor: pointer;
+
+  &:hover {
+    background-position: right center;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:disabled {
+    opacity: 0.8;
+    cursor: default;
+    pointer-events: none;
+  }
+}

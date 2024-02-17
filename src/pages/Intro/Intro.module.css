@@ -52,6 +52,30 @@
   text-align: center;
 }
 
+.play {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: unset !important;
+  height: unset !important;
+
+  margin-top: 50px;
+  padding: 15px 25px;
+
+  font-family: "Press Start 2P", system-ui;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: 7px;
+  text-align: center;
+
+  span {
+    margin-left: 10px;
+
+    line-height: 1px;
+  }
+}
+
 @keyframes glow-text {
   from {
     text-shadow: 0 0 10px var(--white), 0 0 20px var(--white),
