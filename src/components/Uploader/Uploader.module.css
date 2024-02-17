@@ -8,8 +8,8 @@
   padding: 15px 25px;
 
   font-family: "Press Start 2P", system-ui;
-  font-size: 1.5rem;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1;
   letter-spacing: 7px;
   text-align: center;
 
@@ -35,4 +35,10 @@
   &:active {
     transform: scale(0.95);
   }
+}
+
+.label-disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
 }

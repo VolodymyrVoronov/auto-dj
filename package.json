@@ -12,12 +12,15 @@
   "dependencies": {
     "@fontsource/press-start-2p": "^5.0.18",
     "@wavesurfer/react": "^1.0.4",
+    "classnames": "^2.5.1",
     "framer-motion": "^11.0.5",
+    "immer": "^10.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.1",
     "reset-css": "^5.0.2",
-    "wavesurfer.js": "^7.7.3"
+    "wavesurfer.js": "^7.7.3",
+    "zustand": "^4.5.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.55",

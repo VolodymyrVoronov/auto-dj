@@ -45,7 +45,7 @@ const Intro = (): JSX.Element => {
             delay: 1.5,
           }}
           className={styles["icon"]}
-          src="./icons/vinyl-icon-02.png"
+          src="./icons/vinyl-icon-01.png"
           alt="Vinyl icon"
         />
       </motion.div>

@@ -15,7 +15,7 @@
 
 .title {
   font-family: "Press Start 2P", system-ui;
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   line-height: 1.5;
   letter-spacing: 7px;
   text-align: center;
@@ -32,11 +32,11 @@
 }
 
 .icon {
-  width: 250px;
-  height: 250px;
+  width: 150px;
+  height: 150px;
 
-  margin-top: 70px;
-  margin-bottom: 50px;
+  margin-top: 30px;
+  margin-bottom: 10px;
 
   border-radius: 50%;
 }

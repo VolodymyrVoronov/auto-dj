@@ -7,6 +7,7 @@ class AudioContextSingleton {
     if (!this.instance) {
       this.instance = new AudioContext();
     }
+
     return this.instance;
   }
 }
