@@ -5,6 +5,12 @@
   flex-direction: column;
 
   height: 100vh;
+
+  @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+    height: auto;
+
+    padding-block: 50px;
+  }
 }
 
 .title {
@@ -17,15 +23,34 @@
   animation: glow-text 2s ease-in-out infinite alternate;
 }
 
+.subtitle {
+  font-family: "Press Start 2P", system-ui;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  letter-spacing: 7px;
+  text-align: center;
+}
+
 .icon {
   width: 250px;
   height: 250px;
 
-  margin-top: 25px;
+  margin-top: 70px;
+  margin-bottom: 50px;
 
   border-radius: 50%;
+}
 
-  /* animation: glow-box 2s ease-in-out infinite alternate; */
+.tip-container {
+  height: 20px;
+
+  margin-bottom: 10px;
+}
+
+.tip {
+  /* font-family: "Press Start 2P", system-ui; */
+  font-size: 16px;
+  text-align: center;
 }
 
 @keyframes glow-text {
@@ -41,17 +66,3 @@
       0 0 80px var(--blue-light);
   }
 }
-
-/* @keyframes glow-box {
-  from {
-    box-shadow: 0 0 10px var(--white), 0 0 20px var(--white),
-      0 0 30px var(--red), 0 0 40px var(--red), 0 0 50px var(--red),
-      0 0 60px var(--red), 0 0 70px var(--red) inset;
-  }
-  to {
-    box-shadow: 0 0 20px var(--white), 0 0 30px var(--blue-light),
-      0 0 40px var(--blue-light), 0 0 50px var(--blue-light),
-      0 0 60px var(--blue-light), 0 0 70px var(--blue-light),
-      0 0 80px var(--blue-light) inset;
-  }
-} */
