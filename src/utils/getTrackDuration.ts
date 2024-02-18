@@ -5,7 +5,7 @@ const getTrackDuration = async (sourceAux: string): Promise<number> => {
   const buffer = await res.arrayBuffer();
   const audioBuffer = await audioContext.decodeAudioData(buffer);
 
-  return +(audioBuffer.duration / 60).toFixed(2);
+  return audioBuffer.duration;
 };
 
 export default getTrackDuration;

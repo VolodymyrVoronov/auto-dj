@@ -1,13 +1,11 @@
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useWavesurfer } from "@wavesurfer/react";
 
 import { useAppStore } from "../../store/app";
 
-const formatTime = (seconds: number): string =>
-  [seconds / 60, seconds % 60]
-    .map((v) => `0${Math.floor(v)}`.slice(-2))
-    .join(":");
+import formatTime from "../../utils/formatTime";
+import Control from "../../components/Control/Control";
 
 const Main = (): JSX.Element => {
   const navigate = useNavigate();
@@ -16,26 +14,14 @@ const Main = (): JSX.Element => {
 
   const containerRef = useRef(null);
 
-  const [audioFiles, setAudioFiles] = useState<string[]>([]);
-
-  const onUploadInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const sourceAux = URL.createObjectURL(e.target.files[0]);
-      console.log("BLOB", sourceAux);
-      const audio = new Audio(sourceAux);
-
-      setAudioFiles((prevFiles) => [...prevFiles, audio.src]);
-    }
-  };
-
   // console.log(audioFiles);
 
   const { wavesurfer, isPlaying, currentTime } = useWavesurfer({
     container: containerRef,
     height: 250,
-    waveColor: "rgb(200, 0, 200)",
-    progressColor: "rgb(100, 0, 100)",
-    url: audioFiles[0],
+    waveColor: "#f97316",
+    progressColor: "#b45309",
+    url: tracks.length > 0 ? tracks[0].src : "",
     // interact: false,
     normalize: true,
 
@@ -46,6 +32,15 @@ const Main = (): JSX.Element => {
     wavesurfer?.playPause();
   }, [wavesurfer]);
 
+  // console.log(tracks[0].duration);
+  console.log(Math.round(wavesurfer?.getDuration()));
+  console.log(Math.round(wavesurfer?.getCurrentTime()));
+
+  console.log(
+    Math.round(wavesurfer?.getCurrentTime()) + 10 >
+      Math.round(wavesurfer?.getDuration())
+  );
+
   useEffect(() => {
     if (tracks.length === 0) {
       navigate("/", { replace: true });
@@ -53,30 +48,22 @@ const Main = (): JSX.Element => {
   }, [navigate, tracks.length]);
 
   return (
-    <div>
-      <div ref={containerRef} />
+    <>
+      <div>
+        <div ref={containerRef} />
 
-      <p>Current time: {formatTime(currentTime)}</p>
+        <p>Current time: {formatTime(currentTime)}</p>
+        {/* <p>Track duration: {formatTime(tracks[0].duration)}</p> */}
 
-      <div style={{ margin: "1em 0", display: "flex", gap: "1em" }}>
-        <button onClick={onPlayPause} style={{ minWidth: "5em" }}>
-          {isPlaying ? "Pause" : "Play"}
-        </button>
+        <div style={{ margin: "1em 0", display: "flex", gap: "1em" }}>
+          <button onClick={onPlayPause} style={{ minWidth: "5em" }}>
+            {isPlaying ? "Pause" : "Play"}
+          </button>
+        </div>
       </div>
 
-      <input
-        type="file"
-        accept="audio/mp3"
-        onChange={onUploadInputChange}
-        multiple
-      />
-
-      {/* {audioFiles.map((file, index) => (
-        <div key={index}>
-          <audio controls src={URL.createObjectURL(file)} />
-        </div>
-      ))} */}
-    </div>
+      <Control />
+    </>
   );
 };
 
