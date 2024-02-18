@@ -1,5 +1,8 @@
-import { ChangeEvent, useCallback, useRef, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useWavesurfer } from "@wavesurfer/react";
+
+import { useAppStore } from "../../store/app";
 
 const formatTime = (seconds: number): string =>
   [seconds / 60, seconds % 60]
@@ -7,6 +10,10 @@ const formatTime = (seconds: number): string =>
     .join(":");
 
 const Main = (): JSX.Element => {
+  const navigate = useNavigate();
+
+  const { tracks, uploading } = useAppStore();
+
   const containerRef = useRef(null);
 
   const [audioFiles, setAudioFiles] = useState<string[]>([]);
@@ -39,7 +46,11 @@ const Main = (): JSX.Element => {
     wavesurfer?.playPause();
   }, [wavesurfer]);
 
-  console.log(audioFiles);
+  useEffect(() => {
+    if (tracks.length === 0) {
+      navigate("/", { replace: true });
+    }
+  }, [navigate, tracks.length]);
 
   return (
     <div>

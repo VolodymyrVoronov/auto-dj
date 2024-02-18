@@ -4,7 +4,7 @@ import { useAppStore } from "../../store/app";
 
 import Button from "../Button/Button";
 
-import styles from "./Tracks.module.css";
+import styles from "./TrackList.module.css";
 
 const Tracks = (): JSX.Element => {
   const { tracks, uploading, deleteTrack } = useAppStore();

@@ -1,15 +1,18 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { useAppStore } from "../../store/app";
 
 import Uploader from "../../components/Uploader/Uploader";
-import Tracks from "../../components/Tracks/Tracks";
+import Tracks from "../../components/TrackList/TrackList";
 
 import styles from "./Intro.module.css";
 import Button from "../../components/Button/Button";
 
 const Intro = (): JSX.Element => {
+  const navigate = useNavigate();
+
   const { tracks, uploading } = useAppStore();
 
   const firstUploadRef = useRef(false);
@@ -22,6 +25,10 @@ const Intro = (): JSX.Element => {
 
   const onUploaderLeave = (): void => {
     setShowTip(false);
+  };
+
+  const onPlayButtonClick = (): void => {
+    navigate("/player", { replace: true });
   };
 
   useEffect(() => {
@@ -111,7 +118,11 @@ const Intro = (): JSX.Element => {
             exit={{ opacity: 0, y: 100 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
-            <Button className={styles["play"]} disabled={uploading}>
+            <Button
+              onClick={onPlayButtonClick}
+              className={styles["play"]}
+              disabled={uploading}
+            >
               Play <span>&#9654;</span>
             </Button>
           </motion.div>
