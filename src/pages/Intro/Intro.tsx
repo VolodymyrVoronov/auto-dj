@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { useAppStore } from "../../store/app";
@@ -12,6 +12,8 @@ import Button from "../../components/Button/Button";
 const Intro = (): JSX.Element => {
   const { tracks, uploading } = useAppStore();
 
+  const firstUploadRef = useRef(false);
+
   const [showTip, setShowTip] = useState(false);
 
   const onUploaderHover = (): void => {
@@ -22,7 +24,15 @@ const Intro = (): JSX.Element => {
     setShowTip(false);
   };
 
-  console.log(uploading);
+  useEffect(() => {
+    if (tracks.length > 0) {
+      firstUploadRef.current = true;
+    }
+
+    if (tracks.length === 0) {
+      firstUploadRef.current = false;
+    }
+  }, [tracks.length, uploading]);
 
   return (
     <div className={styles["root"]}>
@@ -80,7 +90,7 @@ const Intro = (): JSX.Element => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.5, delay: 2.5 }}
-        {...((!uploading || !tracks.length) && {
+        {...((!firstUploadRef.current || !uploading || !tracks.length) && {
           onMouseEnter: onUploaderHover,
           onMouseLeave: onUploaderLeave,
           onTap: onUploaderHover,
@@ -94,7 +104,7 @@ const Intro = (): JSX.Element => {
       <Tracks />
 
       <AnimatePresence>
-        {!!tracks.length && (
+        {(firstUploadRef.current || !uploading) && tracks.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
