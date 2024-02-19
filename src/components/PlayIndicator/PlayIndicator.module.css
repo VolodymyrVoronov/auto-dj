@@ -1,0 +1,19 @@
+.indicator {
+  width: 15px;
+  height: 15px;
+
+  margin: 3px;
+
+  border-radius: 100px;
+  background-color: var(--red);
+
+  animation-name: blink;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

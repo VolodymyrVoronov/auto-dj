@@ -3,10 +3,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "../../store/app";
 
 import Button from "../Button/Button";
+import PlayIndicator from "../PlayIndicator/PlayIndicator";
 
 import styles from "./TrackList.module.css";
 
-const Tracks = (): JSX.Element => {
+interface ITrackProps {
+  hideDeleteButton?: boolean;
+  showPlayingIndicator?: boolean;
+}
+
+const Tracks = ({
+  hideDeleteButton = false,
+  showPlayingIndicator = false,
+}: ITrackProps): JSX.Element => {
   const { tracks, uploading, deleteTrack } = useAppStore();
 
   const onDeleteButtonClick = (id?: string): void => {
@@ -31,12 +40,16 @@ const Tracks = (): JSX.Element => {
               {track.name.replace(".mp3", "")}
             </span>
 
-            <Button
-              onClick={() => onDeleteButtonClick(track.id)}
-              disabled={uploading}
-            >
-              &#10006;
-            </Button>
+            {!hideDeleteButton && (
+              <Button
+                onClick={() => onDeleteButtonClick(track.id)}
+                disabled={uploading}
+              >
+                &#10006;
+              </Button>
+            )}
+
+            {track.playing && showPlayingIndicator && <PlayIndicator />}
           </motion.div>
         ))}
       </AnimatePresence>

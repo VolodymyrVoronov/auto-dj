@@ -1,0 +1,14 @@
+.track {
+  display: flex;
+  flex-direction: column;
+
+  overflow: auto;
+
+  height: calc(100vh - 140px);
+
+  padding: 20px;
+
+  font-family: "Press Start 2P", system-ui;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}

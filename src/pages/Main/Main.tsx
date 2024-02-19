@@ -1,45 +1,19 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useWavesurfer } from "@wavesurfer/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { useAppStore } from "../../store/app";
 
-import formatTime from "../../utils/formatTime";
-import Control from "../../components/Control/Control";
+import Control from "../../components/Controls/Controls";
+import Player from "../../components/Player/Player";
+
+import styles from "./Main.module.css";
+import Tracks from "../../components/TrackList/TrackList";
 
 const Main = (): JSX.Element => {
   const navigate = useNavigate();
 
-  const { tracks, uploading } = useAppStore();
-
-  const containerRef = useRef(null);
-
-  // console.log(audioFiles);
-
-  const { wavesurfer, isPlaying, currentTime } = useWavesurfer({
-    container: containerRef,
-    height: 250,
-    waveColor: "#f97316",
-    progressColor: "#b45309",
-    url: tracks.length > 0 ? tracks[0].src : "",
-    // interact: false,
-    normalize: true,
-
-    // plugins: useMemo(() => [Timeline.create()], []),
-  });
-
-  const onPlayPause = useCallback(() => {
-    wavesurfer?.playPause();
-  }, [wavesurfer]);
-
-  // console.log(tracks[0].duration);
-  console.log(Math.round(wavesurfer?.getDuration()));
-  console.log(Math.round(wavesurfer?.getCurrentTime()));
-
-  console.log(
-    Math.round(wavesurfer?.getCurrentTime()) + 10 >
-      Math.round(wavesurfer?.getDuration())
-  );
+  const { tracks, trackIndex } = useAppStore();
 
   useEffect(() => {
     if (tracks.length === 0) {
@@ -49,17 +23,22 @@ const Main = (): JSX.Element => {
 
   return (
     <>
-      <div>
-        <div ref={containerRef} />
+      <div className={styles["track"]}>
+        <AnimatePresence initial={false} mode="wait">
+          {tracks[trackIndex] && (
+            <motion.div
+              key={tracks[trackIndex].id}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 50 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Player track={tracks[trackIndex]} />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        <p>Current time: {formatTime(currentTime)}</p>
-        {/* <p>Track duration: {formatTime(tracks[0].duration)}</p> */}
-
-        <div style={{ margin: "1em 0", display: "flex", gap: "1em" }}>
-          <button onClick={onPlayPause} style={{ minWidth: "5em" }}>
-            {isPlaying ? "Pause" : "Play"}
-          </button>
-        </div>
+        <Tracks hideDeleteButton showPlayingIndicator />
       </div>
 
       <Control />
