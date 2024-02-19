@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import cn from "classnames";
 
 import { useAppStore } from "../../store/app";
 
@@ -36,7 +37,11 @@ const Tracks = ({
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className={styles["track"]}
           >
-            <span className={styles["name"]}>
+            <span
+              className={cn(styles["name"], {
+                [styles["playing"]]: track.playing,
+              })}
+            >
               {track.name.replace(".mp3", "")}
             </span>
 

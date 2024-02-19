@@ -23,3 +23,12 @@
   font-size: 1.2rem;
   line-height: 1.2;
 }
+
+.playing {
+  background-image: linear-gradient(90deg, var(--red), var(--blue-light));
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
