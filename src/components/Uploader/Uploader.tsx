@@ -45,8 +45,6 @@ const Uploader = (): JSX.Element => {
     }
   };
 
-  console.log(tracks);
-
   return (
     <>
       <label
