@@ -35,6 +35,7 @@ const Player = ({ track }: IPlayerProps): JSX.Element => {
     url: track.src,
     autoplay: false,
     normalize: true,
+    interact: false,
   });
 
   useEffect(() => {
