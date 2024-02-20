@@ -92,6 +92,13 @@ export const useAppStore = create(
 
         state.tracks.map((track) => (track.playing = false));
         state.tracks[state.trackIndex].playing = true;
+
+        // const tId = setTimeout(() => {
+        //   state.isPlaying = true;
+        //   state.isPaused = false;
+
+        //   clearTimeout(tId);
+        // }, 1000);
       });
     },
 

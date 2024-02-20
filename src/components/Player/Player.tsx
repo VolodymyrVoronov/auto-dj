@@ -42,6 +42,7 @@ const Player = ({ track }: IPlayerProps): JSX.Element => {
     const timerId = setTimeout(() => {
       setPlaying(true);
       setPaused(false);
+
       clearTimeout(timerId);
     }, 1000);
   }, []);
@@ -60,26 +61,14 @@ const Player = ({ track }: IPlayerProps): JSX.Element => {
     if (wavesurfer?.media.ended) {
       setNextTrack();
 
-      console.log("Next track");
+      setPlaying(false);
+      setPaused(true);
 
-      if (isTrackPlaying) {
-        setPlaying(false);
-        setPaused(true);
-
-        const timeId = setTimeout(() => {
-          setPlaying(true);
-          setPaused(false);
-          clearTimeout(timeId);
-        }, 1000);
-      }
-
-      if (isPaused) {
-        const timeId = setTimeout(() => {
-          setPlaying(true);
-          setPaused(false);
-          clearTimeout(timeId);
-        }, 1000);
-      }
+      const timeId = setTimeout(() => {
+        setPlaying(true);
+        setPaused(false);
+        clearTimeout(timeId);
+      }, 2000);
     }
   }, [isPlaying, wavesurfer?.media.ended]);
 

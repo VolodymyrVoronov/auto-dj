@@ -6,9 +6,9 @@ import { useAppStore } from "../../store/app";
 
 import Uploader from "../../components/Uploader/Uploader";
 import Tracks from "../../components/TrackList/TrackList";
+import Button from "../../components/Button/Button";
 
 import styles from "./Intro.module.css";
-import Button from "../../components/Button/Button";
 
 const Intro = (): JSX.Element => {
   const navigate = useNavigate();

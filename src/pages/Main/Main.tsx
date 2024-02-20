@@ -6,9 +6,9 @@ import { useAppStore } from "../../store/app";
 
 import Control from "../../components/Controls/Controls";
 import Player from "../../components/Player/Player";
+import TrackList from "../../components/TrackList/TrackList";
 
 import styles from "./Main.module.css";
-import Tracks from "../../components/TrackList/TrackList";
 
 const Main = (): JSX.Element => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const Main = (): JSX.Element => {
           )}
         </AnimatePresence>
 
-        <Tracks hideDeleteButton showPlayingIndicator />
+        <TrackList hideDeleteButton showPlayingIndicator />
       </div>
 
       <Control />
