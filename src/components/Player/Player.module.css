@@ -8,5 +8,19 @@
   margin-top: 25px;
   padding-bottom: 15px;
 
+  font-size: 0.8rem;
+  line-height: 1.2;
+  text-align: center;
+
   border-bottom: 1px dashed var(--white);
+
+  p {
+    @media screen and (min-width: 768px) {
+      font-size: 1rem;      
+    }
+
+    @media screen and (min-width: 1024px) {
+      font-size: 1.2rem;
+    }
+  }
 }

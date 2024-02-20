@@ -22,8 +22,16 @@
   margin-right: 25px;
 
   font-family: "Press Start 2P", system-ui;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   line-height: 1.2;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1rem;
+  }
+
+  @media screen and (min-width: 1024px) {
+    font-size: 1.2rem;
+  }
 }
 
 .playing {

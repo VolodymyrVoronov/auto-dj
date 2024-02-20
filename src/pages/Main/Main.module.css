@@ -4,11 +4,23 @@
 
   overflow: auto;
 
-  height: calc(100vh - 140px);
+  height: calc(100vh - 100px);
 
   padding: 20px;
 
   font-family: "Press Start 2P", system-ui;
   font-size: 1.2rem;
   line-height: 1.2;
+
+  @media screen and (min-width: 768px) {
+    height: calc(100vh - 110px);
+  }
+
+  @media screen and (min-width: 1024px) {
+    height: calc(100vh - 120px);
+  }
+
+  @media screen and (min-width: 1440px) {
+    height: calc(100vh - 140px);
+  }
 }

@@ -5,16 +5,27 @@
   flex-direction: column;
 
   padding-block: 100px;
+  padding-inline: 20px;
 }
 
 .title {
   font-family: "Press Start 2P", system-ui;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   line-height: 1.5;
   letter-spacing: 7px;
   text-align: center;
 
   animation: glow-text 2s ease-in-out infinite alternate;
+
+  @media screen and (min-width: 768px) {
+    font-size: 2rem;
+    line-height: 1.5;
+  }
+
+  @media screen and (min-width: 1024px) {
+    font-size: 2.5rem;
+    line-height: 1.5;
+  }
 }
 
 .subtitle {
@@ -26,13 +37,23 @@
 }
 
 .icon {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
 
   margin-top: 30px;
   margin-bottom: 10px;
 
   border-radius: 50%;
+
+  @media screen and (min-width: 768px) {
+    width: 125px;
+    height: 125px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 150px;
+    height: 150px;
+  }
 }
 
 .tip-container {
